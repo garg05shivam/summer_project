@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="playerApp">
+<head>
+  <meta charset="UTF-8">
+  <title>All Players Details</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Bootstrap & AngularJS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+
+  <style>
+    body {
+      background-color: #f8f9fa;
+    }
+    .table th, .table td {
+      vertical-align: middle !important;
+    }
+    .table-hover tbody tr:hover {
+      background-color: #fff3cd;
+    }
+    .badge-custom {
+      font-size: 0.9rem;
+      padding: 6px 12px;
+    }
+    .top-bar{
+    display: flex;                 
+    justify-content: space-between; 
+    align-items: center; 
+    }
+    
+    .top-bar, .bottom-bar {
+      background-color: #0069ff;
+      color: white;
+      padding: 10px 20px;
+      font-weight: bold;
+    }
+
+    .bottom-bar {
+      margin-top: auto;
+      text-align: center;
+    }
+    html, body {
+  height: 100%;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+body {
+  background-color: #f8f9fa;
+  flex: 1;
+}
+.container {
+  flex-grow: 1;
+}
+  </style>
+</head>
+
+<body ng-controller="playerCtrl">
+  <!-- 🔵 Top Header Bar -->
+  <div class="top-bar">
+ <span class="navbar-brand fs-3 d-flex align-items-center gap-2">
+      <img src="./pic/logo.png" alt="Logo" style="height: 40px; width: auto;" />
+      <small class="text-light" style="font-weight: 400; font-size: 1.6rem;"><b>Playvex</b></small>
+    </span>
+    <span>Welcome</span>
+  </div>
+
+  <div class="container mt-5">
+    <h2 class="text-center text-danger mb-4 fw-bold">🎮 All Registered Players</h2>
+
+    <div class="table-responsive shadow border rounded">
+      <table class="table table-hover table-bordered text-center align-middle">
+        <thead class="table-dark">
+          <tr>
+            <th>#</th>
+            <th>Email ID</th>
+            <th>Name</th>
+            <th>Game</th>
+            <th>Contact</th>
+            <th>Gender</th>
+            <th>DOB</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="player in players">
+            <td>{{$index + 1}}</td>
+            <td class="fw-semibold text-primary">{{player.emailid}}</td>
+            <td>{{player.name}}</td>
+            <td><span class="badge bg-info text-dark badge-custom">{{player.game}}</span></td>
+            <td>{{player.contact}}</td>
+            <td>{{player.gender}}</td>
+            <td>{{player.dob}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <!-- 🔵 Bottom Footer Bar -->
+  <div class="bottom-bar">
+    &copy;  All Rights Reserved
+  </div>
+
+  <!-- AngularJS Script -->
+  <script>
+    const app = angular.module("playerApp", []);
+
+    app.controller("playerCtrl", function ($scope, $http) {
+      $scope.players = [];
+
+      // Load all players from backend
+      $http.get("/get-all-players").then(function (res) {
+        $scope.players = res.data;
+      }, function (err) {
+        alert("❌ Error loading player data: " + err.data);
+      });
+    });
+  </script>
+</body>
+</html>

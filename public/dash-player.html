@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="dashApp">
+<head>
+  <meta charset="UTF-8">
+  <title>Player Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.8.3/angular.min.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+  <style>
+    body {
+      background-color: #f1f1f1;
+    }
+
+    .dashboard-box {
+      border: 2px solid #dc3545;
+      padding: 30px;
+      margin: 50px auto;
+      max-width: 1000px;
+      background-color: #ffffff;
+      border-radius: 20px;
+    }
+
+    .dash-title {
+      text-align: center;
+      font-weight: bold;
+      font-size: 1.4rem;
+      margin-bottom: 30px;
+    }
+
+    .card-custom {
+      background-color: #f8d7da;
+      padding: 25px 20px;
+      border-radius: 20px;
+      text-align: center;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      transition: 0.3s;
+      height: 100%;
+    }
+
+    .card-custom:hover {
+      transform: scale(1.03);
+    }
+
+    .dash-img {
+      width: 150px;
+      height: 150px;
+      border: 3px solid red;
+      border-radius: 20px;
+      object-fit: cover;
+      margin-bottom: 25px;
+    }
+    .top-bar{
+    display: flex;                 
+    justify-content: space-between; 
+    align-items: center; 
+    }
+
+    .dash-btn {
+      background-color: #dc3545;
+      color: white;
+      font-weight: 500;
+      border: none;
+      padding: 10px 25px;
+      border-radius: 10px;
+      width: 100%;
+      display: inline-block;
+      text-decoration: none;
+    }
+     .top-bar, .bottom-bar {
+      background-color: #0069ff;
+      color: white;
+      padding: 10px 20px;
+      font-weight: bold;
+    }
+    html, body {
+  height: 100%;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+body {
+  background-color: #f8f9fa;
+  flex: 1;
+}
+.container {
+  flex-grow: 1;
+}
+
+    .bottom-bar {
+      margin-top: auto;
+      text-align: center;
+    }
+
+    .dash-btn:hover {
+      background-color: #bd2130;
+      color: white;
+    }
+  </style>
+  </style>
+  <script>
+    function showuser()
+    {
+        let activeUser=localStorage.getItem("activeUser");
+        document.getElementById("Welcome").innerHTML=activeUser;
+    }
+    function dologout(){
+      localStorage.removeItem("activeUser");
+      location.href="index.html";
+    }
+  </script>
+</head>
+
+<body ng-controller="dashController" onload="showuser();">
+   <div class="top-bar">
+  <span class="navbar-brand fs-3 d-flex align-items-center gap-2">
+      <img src="./pic/logo.png" alt="Logo" style="height: 40px; width: auto;" />
+      <small class="text-light" style="font-weight: 400; font-size: 1.6rem;"><b>Playvex</b></small>
+    </span>
+  <span>Welcome <span id="Welcome">*</span></span>
+</div>
+
+
+  <div class="container dashboard-box">
+    <div class="dash-title">Player Dashboard</div>
+
+    <div class="row g-4 justify-content-center">
+
+      <!-- Profile -->
+      <div class="col-6 col-sm-4 col-md-3">
+        <div class="card-custom">
+          <img src="./pic/user_img.png" class="dash-img" alt="Profile">
+          <a href="player_profile.html" class="dash-btn">Profile</a>
+        </div>
+      </div>
+
+      <!-- Explore Events -->
+      <div class="col-6 col-sm-4 col-md-3">
+        <div class="card-custom">
+          <img src="./pic/explor_event.png" class="dash-img" alt="Explore Events">
+          <a href="tournament_finder.html" class="dash-btn">Explore Events</a>
+        </div>
+      </div>
+
+      <!-- Settings - Triggers Modal -->
+      <div class="col-6 col-sm-4 col-md-3">
+        <div class="card-custom">
+          <img src="https://cdn-icons-png.flaticon.com/512/2099/2099058.png" class="dash-img" alt="Settings">
+          <button class="dash-btn" data-bs-toggle="modal" data-bs-target="#changePwdModal">Settings</button>
+        </div>
+      </div>
+
+      <!-- Logout -->
+      <div class="col-6 col-sm-4 col-md-3">
+        <div class="card-custom">
+          <img src="https://cdn-icons-png.flaticon.com/512/1828/1828479.png" class="dash-img" alt="Logout">
+          <a  class="dash-btn" onclick="dologout();">Logout</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 🔐 Modal for Password Change -->
+  <div class="modal fade" id="changePwdModal" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content border border-danger">
+        <div class="modal-header  bg-danger text-white">
+          <h5 class="modal-title">Update Password</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+
+          <div class="mb-3">
+            <label>Email ID:</label>
+            <input type="email" class="form-control border-danger" ng-model="emailid" required>
+          </div>
+
+          <div class="mb-3">
+            <label>Old Password:</label>
+            <input type="password" class="form-control border-danger" ng-model="oldpwd" required>
+          </div>
+
+          <div class="mb-3">
+            <label>New Password:</label>
+            <input type="password" class="form-control border-danger" ng-model="newpwd" required>
+          </div>
+
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-outline-primary" ng-click="updatePassword()">Update Password</button>
+        </div>
+      </div>
+    </div>
+  </div>
+    <!-- 🔵 Footer Bar -->
+  <div class="bottom-bar">
+    &copy; All Rights Reserved
+  </div>
+
+  <!-- AngularJS Script -->
+  <script>
+    var app = angular.module("dashApp", []);
+    app.controller("dashController", function ($scope, $http) {
+      $scope.emailid = '';
+      $scope.oldpwd = '';
+      $scope.newpwd = '';
+
+      $scope.updatePassword = function () {
+        if (!$scope.emailid || !$scope.oldpwd || !$scope.newpwd) {
+          alert("❌ Please fill in all fields.");
+          return;
+        }
+
+        let url = "/update-password";
+        let data = {
+          emailid: $scope.emailid,
+          oldpwd: $scope.oldpwd,
+          newpwd: $scope.newpwd
+        };
+
+        $http.post(url, data).then(function (response) {
+          alert(response.data.message || "✅ Password updated!");
+        }, function (error) {
+          alert("❌ Error updating password.");
+        });
+      };
+    });
+  </script>
+</body>
+</html>

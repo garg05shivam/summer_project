@@ -1,0 +1,616 @@
+  <!DOCTYPE html>
+  <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Index Page - Sports Event Portal</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+
+
+    <style>
+    /* Background gradient */
+    body {
+      background: linear-gradient(135deg, #f8d7da, #fceaea); /* light red tones */
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: #222;
+    }
+
+    /* Navbar */
+    nav.navbar {
+      box-shadow: 0 4px 12px rgba(220, 53, 69, 0.3); /* red shadow */
+      transition: background-color 0.3s ease;
+      font-weight: 600;
+      background-color: #dc3545;
+    }
+    nav.navbar .btn {
+      border-radius: 30px;
+      transition: transform 0.2s ease;
+    }
+    nav.navbar .btn:hover {
+      transform: scale(1.1);
+    }
+
+    /* Highlight underline style with smooth fade */
+    .section-title {
+      position: relative;
+      display: inline-block;
+      padding-bottom: 12px;
+      margin-bottom: 40px;
+      font-weight: 700;
+      font-size: 2.4rem;
+      color: #dc3545;
+      letter-spacing: 1.2px;
+    }
+    .section-title::after {
+      content: '';
+      position: absolute;
+      width: 70px;
+      height: 5px;
+      background-color: #dc3545;
+      left: 50%;
+      transform: translateX(-50%);
+      bottom: 0;
+      border-radius: 3px;
+      transition: width 0.3s ease;
+    }
+    .section-title:hover::after {
+      width: 100px;
+    }
+
+    /* Cards hover effect */
+    .card {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      border-radius: 15px;
+      cursor: pointer;
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    }
+    .card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 40px rgba(220, 53, 69, 0.3);
+    }
+
+    .card-img-top, .developer-img, .map-img {
+      height: 400px;
+      object-fit: cover;
+      border-radius: 15px 15px 0 0;
+    }
+
+    /* Mission image */
+    .mission-img {
+      width: 80%;
+      max-width: 320px;
+      height: auto;
+      border-radius: 15px;
+      box-shadow: 0 10px 25px rgba(220, 53, 69, 0.15);
+      transition: transform 0.3s ease;
+    }
+    .mission-img:hover {
+      transform: scale(1.05);
+    }
+
+    /* Carousel */
+    .carousel-item img {
+      height: 400px;
+      object-fit: cover;
+      border-radius: 15px;
+      transition: transform 1.5s ease;
+    }
+    .carousel-item.active img {
+      transform: scale(1.05);
+    }
+
+    /* Developer images */
+    .developer-img {
+    width: 220px;
+    height: 220px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 5px solid #dc3545;
+    box-shadow: 0 10px 25px rgba(220, 53, 69, 0.3);
+    transition: transform 0.3s ease;
+  }
+
+    .developer-img:hover {
+      transform: scale(1.1);
+    }
+
+    /* Contact Map */
+    .map-img {
+      border-radius: 15px;
+      box-shadow: 0 10px 25px rgba(220, 53, 69, 0.15);
+      transition: transform 0.3s ease;
+    }
+    .map-img:hover {
+      transform: scale(1.05);
+    }
+
+    /* Footer with wave shape */
+    footer {
+      background: linear-gradient(90deg, #0d6efd, #0746c0);
+      color: white;
+      padding: 20px 0;
+      font-weight: 600;
+      font-size: 1rem;
+      text-align: center;
+      box-shadow: 0 -3px 10px rgba(0, 0, 0, 0.2);
+      border-top: 4px solid #ffffff80;
+      letter-spacing: 0.05em;
+    }
+
+    footer a {
+      color: #f8d7da;
+      text-decoration: none;
+      font-weight: 700;
+      margin-left: 8px;
+      transition: color 0.3s ease;
+    }
+
+    footer a:hover {
+      color: #f1b0b7;
+      text-decoration: underline;
+    }
+
+    /* Buttons */
+    .btn-outline-light {
+      border-width: 2px;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+    .btn-outline-light:hover {
+      background-color: #dc3545;
+      color: white;
+      box-shadow: 0 8px 20px rgba(220, 53, 69, 0.5);
+    }
+    .btn-light {
+      transition: box-shadow 0.3s ease;
+    }
+    .btn-light:hover {
+      box-shadow: 0 8px 20px rgba(220, 53, 69, 0.5);
+    }
+
+    /* Scroll to top button */
+    #scrollTopBtn {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background-color: #dc3545;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 45px;
+      height: 45px;
+      font-size: 24px;
+      cursor: pointer;
+      box-shadow: 0 5px 15px rgba(220, 53, 69, 0.6);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s ease;
+      z-index: 1000;
+    }
+    #scrollTopBtn.show {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    html {
+    scroll-behavior: smooth;
+  }
+  .icon-link {
+    color: #333;
+    transition: color 0.3s ease;
+  }
+
+  .icon-link:first-child:hover {
+    color: #C13584; /* Instagram hover color */
+  }
+
+  .icon-link:last-child:hover {
+    color: #0077b5; /* LinkedIn hover color */
+  }
+  #welcomeMessage {
+    font-weight: 700;
+    font-size: 1.5rem;
+    background: linear-gradient(90deg, #dc3545, #ff6b6b);
+    color: white;
+    padding: 12px 0;
+    box-shadow: 0 4px 10px rgba(220, 53, 69, 0.6);
+    border-radius: 0 0 12px 12px;
+    letter-spacing: 1.1px;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+    animation: pulseHighlight 3s ease-in-out infinite;
+  }
+
+
+
+
+
+
+  </style>
+
+  </head>
+  <body>
+
+    <!-- 🔵 Header -->
+    <!-- 🔵 Header -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top">
+    <div class="container-fluid">
+      <!-- Logo & Title -->
+      <a class="navbar-brand d-flex align-items-center gap-2" href="#">
+        <img src="./pic/logo.png" alt="Logo" style="height: 40px; width: auto;" />
+        <small class="text-light" style="font-weight: 400; font-size: 1.6rem;">
+          <b>Playvex</b>
+        </small>
+      </a>
+
+      <!-- Toggler button for mobile -->
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <!-- Navbar content -->
+      <div class="collapse navbar-collapse justify-content-end" id="navbarContent">
+        <!-- Navigation links -->
+        <ul class="navbar-nav me-3">
+          <li class="nav-item">
+            <a class="nav-link text-light" href="#services">Services</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-light" href="#mission">Our Mission</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-light" href="#developers">Developers</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-light" href="#reach">Reach Us</a>
+          </li>
+        </ul>
+
+        <!-- Buttons -->
+        <a href="#" class="btn btn-outline-light me-2 px-4" data-bs-toggle="modal" data-bs-target="#signupModal">Signup</a>
+        <a href="#" class="btn btn-light px-4" data-bs-toggle="modal" data-bs-target="#loginModal">Login</a>
+      </div>
+    </div>
+  </nav>
+  <div id="welcomeMessage" class="bg-danger text-white text-center py-2">
+    Welcome to our website!
+  </div>
+
+
+    
+    <!-- 🖼️ Banner Carousel -->
+    <div class="container my-4">
+      <div id="bannerCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="2500">
+        <div class="carousel-inner rounded shadow-sm">
+          <div class="carousel-item active">
+            <img src="./pic/cricket.jpg" class="d-block w-100" alt="Banner 1" />
+          </div>
+          <div class="carousel-item">
+            <img src="./pic/kabadi.webp" class="d-block w-100" alt="Banner 2" />
+          </div>
+          <div class="carousel-item">
+            <img src="./pic/hockey.jpg" class="d-block w-100" alt="Banner 3" />
+          </div>
+          <div class="carousel-item">
+            <img src="./pic/volleyball.jpg" class="d-block w-100" alt="Banner 4" />
+          </div>
+          <div class="carousel-item">
+            <img src="./pic/basketball.jpg" class="d-block w-100" alt="Banner 5" />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 🔧 Our Services Section -->
+    <div class="container my-5 text-center" id="services">
+      <h3 class="section-title">Our Services</h3>
+      <div class="row justify-content-center">
+        <!-- 🔹 Service 1 -->
+        <div class="col-md-3 mb-4">
+          <div class="card h-100 text-center shadow-sm">
+            <img src="./pic/event.png" class="card-img-top" alt="Service 1" />
+            <div class="card-body">
+              <h5 class="card-title">Event Registration</h5>
+              <p class="card-text">Easily register your sports events and manage entries online.</p>
+            </div>
+          </div>
+        </div>
+        <!-- 🔹 Service 2 -->
+        <div class="col-md-3 mb-4">
+          <div class="card h-100 text-center shadow-sm">
+            <img src="./pic/exploreto.png" class="card-img-top" alt="Service 2" />
+            <div class="card-body">
+              <h5 class="card-title">Explore Tournaments</h5>
+              <p class="card-text">Browse and join upcoming tournaments across multiple sports.</p>
+            </div>
+          </div>
+        </div>
+        <!-- 🔹 Service 3 -->
+        <div class="col-md-3 mb-4">
+          <div class="card h-100 text-center shadow-sm">
+            <img src="./pic/organizationpannel.png" class="card-img-top" alt="Service 3" />
+            <div class="card-body">
+              <h5 class="card-title">Organization Panel</h5>
+              <p class="card-text">Create and manage your own tournaments as an organizer.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 🎯 Mission Section -->
+    <div class="container my-5 text-center" id="mission">
+      <h3 class="section-title">Mission</h3>
+      <div class="row align-items-center">
+        <div class="col-md-4">
+          <img src="./pic/mission.png" class="img-fluid mission-img shadow" alt="Mission" />
+        </div>
+        <div class="col-md-8 text-start">
+          <p class="lead fs-5">  <b>⭐ To empower local talent and foster community spirit through inclusive, well-organized tournaments that celebrate sportsmanship and passion.</b>
+
+                                <br> <b>⭐ To connect players, fans, and communities with dynamic, engaging local tournaments that inspire and uplift the love for sports.</b>
+
+                                <br> <b>⭐ To provide a supportive platform where emerging athletes can showcase their skills, grow together, and promote healthy competition across neighborhoods.</b></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 🧑‍💻 Meet the Developers -->
+    <div class="container my-5 text-center" id="developers">
+      <h3 class="section-title">Meet the Developers</h3>
+      <div class="row justify-content-center gap-4">
+        <div class="col-md-5">
+          <h5 class="mb-3">Under The Guidance Of</h5>
+          <img src="./pic/sir.jpeg" class="developer-img shadow" alt="Mentor" />
+          <p class="mt-3 fw-semibold fs-5">Prof. Rajesh Kumar Bansal
+            <br>Contact No.- 98722-46056
+          </p>
+        </div>
+        <div class="col-md-5">
+          <h5 class="mb-3">Developed By</h5>
+          <img src="./pic/SHIVAM.jpg" class="developer-img shadow" alt="Developer" />
+          <p class="mt-3 fw-semibold fs-5">Mr. Shivam Garg</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 📍 Reach Us -->
+  <!-- 📍 Reach Us -->
+ <div class="container my-5 text-center" id="reach">
+  <h3 class="section-title">Reach Us</h3>
+  <div class="row text-start justify-content-center gap-4">
+    
+    <!-- Feedback Form -->
+    <div class="col-md-5">
+      <h5 class="mb-3">Feedback Form</h5>
+      <form id="feedbackForm">
+        <div class="mb-3">
+          <label for="name" class="form-label"><strong>Name:</strong></label>
+          <input type="text" id="name" class="form-control" placeholder="Your name" required>
+        </div>
+        <div class="mb-3">
+          <label for="email" class="form-label"><strong>Email:</strong></label>
+          <input type="email" id="email" class="form-control" placeholder="Your email" required>
+        </div>
+        <div class="mb-3">
+          <label for="message" class="form-label"><strong>Message:</strong></label>
+          <textarea id="message" class="form-control" rows="4" placeholder="Your feedback" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-danger w-100">Submit</button>
+      </form>
+    </div>
+
+    <!-- Contact Details + Google Map -->
+    <div class="col-md-5">
+      <h5 class="mb-3">Contact Details</h5>
+      <p><strong>Address:</strong> Raman Mandi, Sunrise Colony, Pin Code - 151301, Dist: Bathinda</p>
+      <p><strong>Email:</strong> garg05shivam@gmail.com</p>
+      <p><strong>Phone:</strong> 7009967412</p>
+      <h5>Follow Us..</h5>
+
+      <div class="contact-icons mt-3 mb-4">
+        <a href="https://www.instagram.com/_its_shivam.2005?igsh=MTVwNmFuc2pwYnRzaQ==" target="_blank" class="me-3 text-dark">
+          <i class="fab fa-instagram fa-2x"></i>
+        </a>
+        <a href="https://www.linkedin.com/in/shivam-garg-098a58285?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank" class="text-dark">
+          <i class="fab fa-linkedin fa-2x"></i>
+        </a>
+      </div>
+
+      <!-- Google Map inside Contact Section -->
+      <h5 class="mb-3">Google Map</h5>
+      <iframe 
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3447.8807340362614!2d74.94975317565151!3d30.211951274839702!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x391732a4f07278a9%3A0x4a0d6293513f98ce!2sBanglore%20Computer%20Education!5e0!3m2!1sen!2sin!4v1753166206819!5m2!1sen!2sin" 
+        width="100%" 
+        height="250" 
+        style="border:0;" 
+        allowfullscreen="" 
+        loading="lazy" 
+        referrerpolicy="no-referrer-when-downgrade">
+      </iframe>
+    </div>
+  </div>
+</div>
+
+
+
+
+    <!-- 🔵 Footer -->
+    <footer class="text-center">
+      &copy; 2025 Sports Event Portal. All Rights Reserved.
+    </footer>
+    <!-- 🔐 Signup Modal -->
+  <div class="modal fade" id="signupModal" tabindex="-1" aria-labelledby="signupModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content border border-danger">
+        <div class="modal-header bg-danger text-white">
+          <h5 class="modal-title" id="signupModalLabel">Signup</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form id="signupForm">
+          <div class="modal-body">
+            <div class="mb-3">
+              <label>Email ID:</label>
+              <input type="email" class="form-control border-danger" id="txtEmail" required />
+              <div id="emailStatus" class="form-text"></div>
+            </div>
+            <div class="mb-3">
+              <label>Password:</label>
+              <input type="password" class="form-control border-danger" id="txtPwd" required />
+            </div>
+            <div class="mb-3">
+              <label>User Type:</label>
+              <select id="comboUser" class="form-select border-danger">
+                <option>Select usertype</option>
+                <option>Player</option>
+                <option>Organizer</option>
+                
+              </select>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-danger w-100" type="submit">Signup</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- 🔐 Login Modal -->
+  <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content border border-danger">
+        <div class="modal-header bg-danger text-white">
+          <h5 class="modal-title" id="loginModalLabel">Login</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form id="loginForm">
+          <div class="modal-body">
+            <div class="mb-3">
+              <label>Email ID:</label>
+              <input type="email" class="form-control border-danger" id="loginEmail" required />
+            </div>
+            <div class="mb-3">
+              <label>Password:</label>
+              <input type="password" class="form-control border-danger" id="loginPwd" required />
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-danger w-100" type="submit">Login</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+
+    <!-- Scroll to Top Button -->
+    <button id="scrollTopBtn" title="Go to top">&#8679;</button>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+      // Scroll to top button
+      const scrollTopBtn = document.getElementById('scrollTopBtn');
+      window.addEventListener('scroll', () => {
+        if (window.pageYOffset > 300) {
+          scrollTopBtn.classList.add('show');
+        } else {
+          scrollTopBtn.classList.remove('show');
+        }
+      });
+      scrollTopBtn.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    </script>
+    <!-- ✅ jQuery Script -->
+    <script>
+      $(document).ready(function () {
+        // Email Availability Check
+        $("#txtEmail").blur(function () {
+          const emailVal = $(this).val().trim();
+          if (emailVal === "") {
+            $("#emailStatus").text("").removeClass("text-success text-danger");
+            return;
+          }
+
+          $.get("/chk-email", { txtEmail: emailVal }, function (res) {
+            if (res.includes("Already"))
+              $("#emailStatus").text("❌ Already Taken").addClass("text-danger").removeClass("text-success");
+            else
+              $("#emailStatus").text("✅ Available").addClass("text-success").removeClass("text-danger");
+          });
+        });
+
+        // Signup
+        $("#signupForm").submit(function (e) {
+          e.preventDefault();
+          $.ajax({
+            type: "POST",
+            url: "/signup",
+            contentType: "application/json",
+            data: JSON.stringify({
+              emailid: $("#txtEmail").val(),
+              pwd: $("#txtPwd").val(),
+              utype: $("#comboUser").val()
+            }),
+            success: function (response) {
+              alert(response);
+              $("#signupForm")[0].reset();
+              $("#emailStatus").text("").removeClass("text-success text-danger");
+              bootstrap.Modal.getInstance(document.getElementById("signupModal")).hide();
+            },
+            error: function (err) {
+              alert("Signup failed: " + err.responseText);
+            }
+          });
+        });
+
+        
+    // Login
+  $("#loginForm").submit(function (e) {
+    e.preventDefault();
+    $.ajax({
+      type: "POST",
+      url: "/do-login",
+      contentType: "application/json",
+      data: JSON.stringify({
+        emailid: $("#loginEmail").val(),
+        pwd: $("#loginPwd").val()
+      }),
+      success: function (response) {
+        alert(response.message);
+        
+        if (response.usertype === "Player") 
+        {
+          localStorage.setItem("activeUser",response.emailid);
+          location.href = "dash-player.html";
+        } else if (response.usertype === "Organizer")
+        {
+          localStorage.setItem("activeUser",response.emailid);
+          location.href = "org-dash.html";
+        }
+        else if(response.usertype==="admin")
+        {
+          localStorage.setItem("activeUser",response.emailid);
+          location.href = "dash_admin.html";
+        } else 
+        {
+          alert("⚠️ Unknown user type.");
+        }
+
+        $("#loginForm")[0].reset();
+        bootstrap.Modal.getInstance(document.getElementById("loginModal")).hide();
+      },
+      error: function (err) {
+        alert("Login failed: " + err.responseText);
+      }
+    });
+  });
+
+      });
+    </script>
+    
+  </body>
+  </html>

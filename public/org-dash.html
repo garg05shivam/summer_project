@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="orgDashApp">
+<head>
+  <meta charset="UTF-8" />
+  <title>Organizer Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.8.3/angular.min.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<style>
+  /* Body and layout */
+html, body {
+  height: 100%;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  background-color: #f8f9fa;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #333;
+  flex: 1;
+}
+
+body {
+  min-height: 100vh;
+}
+
+/* Top bar & bottom bar */
+.top-bar, .bottom-bar {
+  background-color: #0069ff;
+  color: white;
+  padding: 10px 20px;
+  font-weight: bold;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.bottom-bar {
+  margin-top: auto;
+  width: 100%;
+  font-size: 0.9rem;
+  padding: 10px 20px;
+
+  /* Center the text */
+  display: flex;            /* keep flex for vertical centering */
+  justify-content: center;  /* center horizontally */
+  align-items: center;      /* center vertically */
+  text-align: center;       /* fallback for text */
+}
+
+
+/* Dashboard heading */
+.dashboard-title, .dash-title {
+  text-align: center;
+  font-weight: 700;
+  font-size: 2rem;
+  color: #dc3545;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+/* Cards container */
+.container, .scroll-row, .dashboard-box {
+  flex-grow: 3;
+  padding: 0 15px 3rem 15px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.scroll-row {
+  display: flex;
+  justify-content: center;  /* Center cards horizontally */
+  flex-wrap: nowrap;        /* Or wrap if you want */
+  gap: 1rem;                /* spacing between cards */
+  padding: 40px 20px;
+  overflow-x: auto;         /* allows horizontal scroll if cards overflow */
+}
+
+/* Card style */
+.card-custom {
+  background-color: #f8d7da;
+  border-radius: 20px;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 4px 8px rgb(0 0 0 / 0.1);
+  transition: transform 0.3s ease;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  margin-bottom: 1.5rem;
+  cursor: default;
+}
+
+.card-custom:hover {
+  transform: scale(1.05);
+}
+
+/* Images inside cards */
+.dashboard-img, .dash-img {
+  width: 150px;
+  height: 150px;
+  border: 3px solid #dc3545;
+  border-radius: 20px;
+  object-fit: cover;
+  margin-bottom: 1.5rem;
+  background-color: #fff;
+  align-self: center;
+}
+
+/* Buttons inside cards */
+.dashboard-btn, .dash-btn {
+  background-color: #dc3545;
+  color: white;
+  font-weight: 600;
+  border: none;
+  padding: 10px 25px;
+  border-radius: 10px;
+  width: 100%;
+  text-decoration: none;
+  cursor: pointer;
+  user-select: none;
+  transition: background-color 0.3s ease;
+  margin-top: auto;
+  display: inline-block;
+}
+
+.dashboard-btn:hover, .dash-btn:hover {
+  background-color: #bd2130;
+  color: white;
+}
+
+/* Responsive grid for cards */
+.row, .scroll-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.col-6, .col-sm-4, .col-md-3 {
+  flex: 1 1 200px;
+  max-width: 250px;
+}
+
+/* Modal fixes */
+.modal-content.border-danger {
+  border-color: #dc3545 !important;
+}
+
+.modal-header.bg-danger {
+  background-color: #dc3545 !important;
+  color: white;
+}
+.dashboard-box {
+  border: 2px solid #dc3545;
+  padding: 30px;
+  margin: 50px auto;
+  background-color: #ffffff;
+  border-radius: 20px;
+}
+</style>
+
+
+  <script>
+    function showuser() {
+      let activeUser = localStorage.getItem("activeUser");
+      document.getElementById("Welcome").innerHTML = activeUser || "*";
+    }
+
+    function dologout() {
+      localStorage.removeItem("activeUser");
+      window.location.href = "index.html";
+    }
+  </script>
+</head>
+
+<body ng-controller="orgDashController" onload="showuser();">
+  <!-- 🔵 Top Bar -->
+  <div class="top-bar">
+     <span class="navbar-brand fs-3 d-flex align-items-center gap-2">
+      <img src="./pic/logo.png" alt="Logo" style="height: 40px; width: auto;" />
+      <small class="text-light" style="font-weight: 400; font-size: 1.6rem;"><b>Playvex</b></small>
+    </span>
+    <span>Welcome <span id="Welcome">*</span></span>
+  </div>
+
+  <!-- ✅ Dashboard Box -->
+  <div class="container dashboard-box">
+    <div class="dash-title">Organizer Dashboard</div>
+
+    <div class="row g-4 justify-content-center">
+
+      <!-- Org Details -->
+      <div class="col-6 col-sm-4 col-md-3">
+        <div class="card-custom">
+          <img src="./pic/org.details.jpg" class="dash-img" alt="Org Details">
+          <a href="org-details.html" class="dash-btn">Org. Details</a>
+        </div>
+      </div>
+
+      <!-- Post Events -->
+      <div class="col-6 col-sm-4 col-md-3">
+        <div class="card-custom">
+          <img src="./pic/event_reg.png" class="dash-img" alt="Post Events">
+          <a href="post-tournament.html" class="dash-btn">Post Events</a>
+        </div>
+      </div>
+
+      <!-- Explore Events -->
+      <div class="col-6 col-sm-4 col-md-3">
+        <div class="card-custom">
+          <img src="./pic/explor_event.png" class="dash-img" alt="Explore Events">
+          <a href="tournaments_manager.html" class="dash-btn">Explore Events</a>
+        </div>
+      </div>
+
+      <!-- Settings -->
+      <div class="col-6 col-sm-4 col-md-3">
+        <div class="card-custom">
+          <img src="https://cdn-icons-png.flaticon.com/512/2099/2099058.png" class="dash-img" alt="Settings">
+          <button class="dash-btn" data-bs-toggle="modal" data-bs-target="#changePwdModal">Settings</button>
+        </div>
+      </div>
+
+      <!-- Logout -->
+      <div class="col-6 col-sm-4 col-md-3">
+        <div class="card-custom">
+          <img src="https://cdn-icons-png.flaticon.com/512/1828/1828479.png" class="dash-img" alt="Logout">
+          <a class="dash-btn" onclick="dologout()">Logout</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 🔵 Footer -->
+  <div class="bottom-bar">
+    &copy; All Rights Reserved
+  </div>
+  <!-- 🔐 Password Modal -->
+  <div class="modal fade" id="changePwdModal" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content border border-danger">
+        <div class="modal-header bg-danger text-white">
+          <h5 class="modal-title">Update Password</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <div class="mb-3">
+            <label>Email ID:</label>
+            <input type="email" class="form-control border-danger" ng-model="emailid" required>
+          </div>
+          <div class="mb-3">
+            <label>Old Password:</label>
+            <input type="password" class="form-control border-danger" ng-model="oldpwd" required>
+          </div>
+          <div class="mb-3">
+            <label>New Password:</label>
+            <input type="password" class="form-control border-danger" ng-model="newpwd" required>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-outline-primary" ng-click="updatePassword()">Update Password</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ✅ AngularJS Controller -->
+  <script>
+    var app = angular.module("orgDashApp", []);
+    app.controller("orgDashController", function ($scope, $http) {
+      $scope.emailid = '';
+      $scope.oldpwd = '';
+      $scope.newpwd = '';
+
+      $scope.updatePassword = function () {
+        if (!$scope.emailid || !$scope.oldpwd || !$scope.newpwd) {
+          alert("❌ Please fill in all fields.");
+          return;
+        }
+
+        const data = {
+          emailid: $scope.emailid,
+          oldpwd: $scope.oldpwd,
+          newpwd: $scope.newpwd
+        };
+
+        $http.post("/update-password-organiser", data)
+          .then(res => alert(res.data || "✅ Password updated!"))
+          .catch(err => {
+            const msg = (err.data && typeof err.data === 'string') ? err.data : "❌ Error updating password.";
+            alert(msg);
+          });
+      };
+    });
+  </script>
+</body>
+</html>
