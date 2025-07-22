@@ -19,9 +19,9 @@
       font-weight: bold;
     }
     .top-bar{
-    display: flex;                 
-    justify-content: space-between; 
-    align-items: center; 
+      display: flex;                 
+      justify-content: space-between; 
+      align-items: center; 
     }
 
     .bottom-bar {
@@ -39,7 +39,6 @@
       transition: 0.3s;
       height: 100%;
     }
-
 
     .dashboard-img {
       width: 150px;
@@ -66,13 +65,13 @@
     }
   </style>
   <script>
-  function dologout() {
-    if (confirm("Are you sure you want to logout?")) {
-      localStorage.removeItem("activeUser");
-      location.href = "index.html";
+    function dologout() {
+      if (confirm("Are you sure you want to logout?")) {
+        localStorage.removeItem("activeUser");
+        location.href = "index.html";
+      }
     }
-  }
-</script>
+  </script>
 </head>
 
 <body class="bg-light">
@@ -85,48 +84,49 @@
     </span>
     <span>Welcome</span>
   </div>
-<div class="text-center fw-bold fs-3 text-danger mt-4">
-  Admin Dashboard
-</div>
-<!-- ✅ Dashboard Card Section -->
-<div class="container my-5">
-  <div class="row justify-content-center flex-nowrap overflow-auto">
-    
-    <!-- Card 1: User Console -->
-    <div class="col-6 col-md-3">
-      <div class="card-custom">
-        <img src="./pic/user_consol.png" class="dashboard-img" alt="User console">
-        <a href="admin_user_console.html" class="btn dashboard-btn">User console</a>
-      </div>
-    </div>
 
-    <!-- Card 2: Register Organisation -->
-    <div class="col-6 col-md-3">
-      <div class="card-custom">
-        <img src="./pic/reg_organisation.png" class="dashboard-img" alt="Register organisation">
-        <a href="admin_organisation_console.html" class="btn dashboard-btn">Register organisation</a>
-      </div>
-    </div>
-
-    <!-- Card 3: Register Players -->
-    <div class="col-6 col-md-3">
-      <div class="card-custom">
-        <img src="./pic/reg_play.png" class="dashboard-img" alt="Register players">
-        <a href="admin_player_consol.html" class="btn dashboard-btn">Register players</a>
-      </div>
-    </div>
-
-    <!-- ✅ Card 4: Logout -->
-    <div class="col-6 col-md-3">
-      <div class="card-custom">
-        <img src="https://cdn-icons-png.flaticon.com/512/1828/1828479.png" class="dashboard-img" alt="Logout">
-        <a href="#" class="btn dashboard-btn" onclick="dologout()">Logout</a>
-      </div>
-    </div>
-
+  <div class="text-center fw-bold fs-3 text-danger mt-4">
+    Admin Dashboard
   </div>
-</div>
 
+  <!-- ✅ Dashboard Card Section -->
+  <div class="container my-5">
+    <div class="row justify-content-center"> <!-- Removed flex-nowrap and overflow-auto -->
+
+      <!-- Card 1: User Console -->
+      <div class="col-6 col-md-3 mb-3"> <!-- Added mb-3 for spacing -->
+        <div class="card-custom">
+          <img src="./pic/user_consol.png" class="dashboard-img" alt="User console">
+          <a href="admin_user_console.html" class="btn dashboard-btn">User console</a>
+        </div>
+      </div>
+
+      <!-- Card 2: Register Organisation -->
+      <div class="col-6 col-md-3 mb-3">
+        <div class="card-custom">
+          <img src="./pic/reg_organisation.png" class="dashboard-img" alt="Register organisation">
+          <a href="admin_organisation_console.html" class="btn dashboard-btn">Register organisation</a>
+        </div>
+      </div>
+
+      <!-- Card 3: Register Players -->
+      <div class="col-6 col-md-3 mb-3">
+        <div class="card-custom">
+          <img src="./pic/reg_play.png" class="dashboard-img" alt="Register players">
+          <a href="admin_player_consol.html" class="btn dashboard-btn">Register players</a>
+        </div>
+      </div>
+
+      <!-- Card 4: Logout -->
+      <div class="col-6 col-md-3 mb-3">
+        <div class="card-custom">
+          <img src="https://cdn-icons-png.flaticon.com/512/1828/1828479.png" class="dashboard-img" alt="Logout">
+          <a href="#" class="btn dashboard-btn" onclick="dologout()">Logout</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
 
   <!-- 🔵 Bottom Footer Bar -->
   <div class="bottom-bar">
